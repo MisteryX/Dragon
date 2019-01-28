@@ -7,6 +7,7 @@ __maintainer__ = "Maxim Morskov"
 
 import sys
 import argparse
+from components.configuration import Configuration
 
 
 class Game:
@@ -15,7 +16,7 @@ class Game:
 	__dragon = None
 
 	def __init__(self, **options):
-		self.__params = options
+		self.__params = Configuration(options)
 
 	def run(self):
 		pass
@@ -37,13 +38,13 @@ def get_params_using_parser(args: list):
 	return params_parser.parse_args(args)
 
 
-def main(params):
-	game = Game(**params)
+def main(a_params):
+	game = Game(**a_params)
 	game.run()
 
 
 # --== Entry point ==--
 if __name__ == "__main__":
-	params = get_params_using_parser(sys.argv[1:])
-	main(params)
+	script_params = get_params_using_parser(sys.argv[1:])
+	main(script_params)
 

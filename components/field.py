@@ -9,17 +9,21 @@ import tkinter
 
 
 class Field:
-	__height = None
-	__width = None
+	__options = None
 	__rootWidget = None
 	__canvas = None
 
-	def __init__(self, height, width, **options):
+	def __init__(self, **options):
 
 		self.__rootWidget = tkinter.Tk()
-		self.__height = height
-		self.__width = width
 		self.__options = options
 		self.__canvas = tkinter.Canvas(self.__rootWidget, **options)
 		self.__canvas.pack()
 		self.__rootWidget.mainloop()
+
+	def _draw_sprite(self, X_cord: int, Y_cord: int, file_name: str):
+		sprite = tkinter.PhotoImage(file=file_name)
+		return self.__canvas.create_image(X_cord, Y_cord, image=sprite)
+
+	def draw_scene(self):
+		pass
