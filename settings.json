@@ -1,8 +1,16 @@
 {
-	"field": {
-		"height": 300,
-		"width": 300,
+	"scene": {
+		"height": 600,
+		"width": 600,
 		"bg": "000000",
 		"bd": 0
+	},
+	"player": {
+		"speed": 5,
+		"direction": "Left"
+	},
+	"foe": {
+		"speed": 5,
+		"direction": "Right"
 	}
 }

@@ -8,18 +8,36 @@ __maintainer__ = "Maxim Morskov"
 import sys
 import argparse
 from components.configuration import Configuration
+from components.scene import Scene
+from components.dragon import Dragon
+from components.gold_coin import GoldCoin
 
 
 class Game:
-	__params = None
-	__field = None
-	__dragon = None
+	__options = None
+	__scene = None
+	__objects = None
 
 	def __init__(self, **options):
-		self.__params = Configuration(options)
+		self.__options = Configuration(options)
+		self.__scene = Scene(self.get_option('scene'))
+		self.__init_objects()
+
+	def __init_objects(self):
+		self.__objects = []
+		self.__objects.append(Dragon(self.get_scene(), self.get_option('player')), True)
+		self.__objects.append(GoldCoin(self.get_scene()))
+
+	def get_option(self, name: str):
+		return self.__options.get(name, None)
+
+	def get_scene(self)->Scene:
+		return self.__scene
 
 	def run(self):
-		pass
+		result = True
+		while result:
+			result = self.get_scene().update()
 
 
 def get_params_using_parser(args: list):
@@ -28,12 +46,7 @@ def get_params_using_parser(args: list):
 	params_parser.add_argument(
 		'-c', '--config_file',
 		type=str, help='path to config file',
-		default='configs/brain_config.json'
-	)
-	params_parser.add_argument(
-		'-s', '--server',
-		type=str, help='server to get config',
-		default=''
+		default='settings.json'
 	)
 	return params_parser.parse_args(args)
 

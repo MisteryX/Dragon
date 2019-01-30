@@ -10,11 +10,10 @@ import json
 
 
 class Configuration:
-	__CONFIG_FILE_NAME = 'settings.json'
 	__options = None
 
 	def __init__(self, **options):
-		self.__options = self.get_stored_options()
+		self.__options = self.get_stored_options(options.get('config_name', None))
 		if not self.__options:
 			self.__options = self.get_default_options()
 		self.__options = {**self.__options, **options}
@@ -28,8 +27,9 @@ class Configuration:
 	def get_options(self):
 		return self.__options
 
-	def get_stored_options(self)->dict:
-		settings = FileHelper.get_text_file_content(self.__CONFIG_FILE_NAME, True)
+	@staticmethod
+	def get_stored_options(file_name: str)->dict:
+		settings = FileHelper.get_text_file_content(file_name, True)
 		if not settings:
 			return {}
 		options = {}
@@ -43,8 +43,8 @@ class Configuration:
 	def get_default_options()->dict:
 		return {
 			'field': {
-				'height': 300,
-				'width': 300,
+				'height': 600,
+				'width': 600,
 				'bg': '000000',
 				'bd': 0
 			}
