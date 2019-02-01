@@ -17,15 +17,17 @@ class Game:
 	__options = None
 	__scene = None
 	__objects = None
+	__player = None
 
 	def __init__(self, **options):
 		self.__options = Configuration(options)
-		self.__scene = Scene(self.get_option('scene'))
+		self.__scene = Scene(self, self.get_option('scene'))
 		self.__init_objects()
 
 	def __init_objects(self):
 		self.__objects = []
-		self.__objects.append(Dragon(self.get_scene(), self.get_option('player')), True)
+		self.__player = Dragon(self.get_scene(), self.get_option('player'), True)
+		self.__objects.append(self.__player)
 		self.__objects.append(GoldCoin(self.get_scene()))
 
 	def get_option(self, name: str):
@@ -33,6 +35,9 @@ class Game:
 
 	def get_scene(self)->Scene:
 		return self.__scene
+
+	def get_player(self)->Dragon:
+		return self.__player
 
 	def run(self):
 		result = True

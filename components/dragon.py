@@ -16,6 +16,7 @@ class Dragon(GameObject):
 
 	__npc = None
 	__tail = None
+	__break_points = None
 
 	def __init__(self, scene: Scene, npc: bool, **options):
 
@@ -26,8 +27,15 @@ class Dragon(GameObject):
 		self.set_direction(options.get('direction', None))
 		self.__npc = npc
 		self.__tail = []
+		self.__break_points = []
 		self.draw(self.HEAD_SPRITE_FILE_NAME)
 
 	def is_NPC(self):
 		return self.__npc
+
+	def set_direction(self, value: str):
+		if self.get_direction() == value:
+			return
+		self.__direction = value
+		self.__break_points.append(self.get_position())
 
