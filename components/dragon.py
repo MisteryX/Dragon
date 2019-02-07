@@ -39,3 +39,4 @@ class Dragon(GameObject):
 		self.__direction = value
 		self.__break_points.append(self.get_position())
 
+

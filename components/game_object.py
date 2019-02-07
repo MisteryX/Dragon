@@ -75,4 +75,5 @@ class GameObject:
 		self.get_scene().draw_sprite(X, Y, sprite_file_name)
 
 	def move(self):
-		pass
+		X, Y = self.get_next_position()
+		self.set_position_xy(X, Y)
