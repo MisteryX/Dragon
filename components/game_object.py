@@ -13,15 +13,20 @@ class GameObject:
 
 	__scene = None
 	__position = None
+	__previous_position = None
 	__height = None
 	__width = None
 	__speed = None
 	__direction = None
+	__sprite = None
 
 	def __init__(self, scene: Scene, position: Point):
 		self.__scene = scene
 		self.__X_cord = position.get_X()
 		self.__Y_cord = position.get_Y()
+
+	def get_sprite(self):
+		return self.__sprite
 
 	def get_position(self)->Point:
 		return self.__position
@@ -30,11 +35,15 @@ class GameObject:
 		return self.get_position().get_X(), self.get_position().get_Y()
 
 	def set_position(self, value: Point):
+		self.__previous_position = self.__position
 		self.__position = value
 
 	def set_position_xy(self, X: int, Y: int):
 		self.get_position().set_X(X)
 		self.get_position().set_Y(Y)
+
+	def get_previous_position(self)->Point:
+		return self.__previous_position
 
 	def get_next_position(self)->tuple:
 		X = self.__X_cord

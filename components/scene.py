@@ -44,6 +44,9 @@ class Scene:
 		self.__objects.append(self.__player)
 		self.__objects.append(GoldCoin(self))
 
+	def get_canvas(self):
+		return self.__canvas
+
 	def get_width(self):
 		return self.__width
 
@@ -65,6 +68,9 @@ class Scene:
 	def draw_sprite(self, X_cord: int, Y_cord: int, file_name: str):
 		sprite = tkinter.PhotoImage(file=file_name)
 		return self.__canvas.create_image(X_cord, Y_cord, image=sprite)
+
+	def move_object(self, object: GameObject, deltaX: int, deltaY: int):
+		self.get_canvas().move(object.get_sprite(), deltaX, deltaY)
 
 	def get_border_collisions(self, a_object: GameObject)->tuple:
 		X, Y = a_object.get_next_position()
@@ -98,7 +104,7 @@ class Scene:
 				return result
 
 			_object.move()
-			_object.draw()
+			_object.draw_move()
 		return True
 
 	def __dispatch_keyboard_event(self, event):

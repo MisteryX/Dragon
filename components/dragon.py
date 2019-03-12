@@ -21,7 +21,7 @@ class Dragon(GameObject):
 	def __init__(self, scene: Scene, npc: bool, **options):
 
 		X = (scene.get_option('width') - self.__width) / 2
-		Y = (scene.get_option('height') - self.__height) / 2
+		Y = 0 if npc else (scene.get_option('height') - self.__height / 2)
 		super().__init__(scene, X, Y)
 		self.set_speed(options.get('speed', None))
 		self.set_direction(options.get('direction', None))
